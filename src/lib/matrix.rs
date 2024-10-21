@@ -83,4 +83,24 @@ impl Matrix {
         res
     }
 
+
+    pub fn dot_multiply(&mut self,other : &Matrix) -> Matrix {
+        if self.cols != other.rows || self.cols != other.rows{
+            panic!("UNSUPPORTED DIMENSION MULTIPLICATION");
+        }
+
+        let mut res = Matrix::zeros(self.rows, other.cols);
+
+        for i in 0..self.rows {
+            for j in 0..self.cols {
+                    res.data[i][j] += self.data[i][j] * other.data[i][j];
+            }
+        }
+
+        res
+    }
+
+
+    
+
 }
