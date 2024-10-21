@@ -38,6 +38,23 @@ impl Matrix {
         Matrix{rows,cols,data:buffer}
     }
 
+    pub fn subtract(&self, other: &Matrix) -> Matrix {
+        if self.rows != rows || self.cols != cols {
+            panic!("Wrong matric dimensions operation");
+        }
+        let mut buffer : Vec<f64> = Vec::<f64>::with_capacity(self.rows * self.cols);
 
+        for i in  0..self.data.len() {
+            let result : f64 = self.data[i] - data[i];
+            buffer.push(result);
+        }
+
+        Matrix {
+            rows: self.rows,
+            cols: self.cols,
+            data:buffer
+        }
+
+    }
 
 }
