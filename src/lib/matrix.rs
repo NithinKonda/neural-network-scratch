@@ -101,6 +101,26 @@ impl Matrix {
     }
 
 
+    pub fn from(data: Vec<Vec<f64>>) -> Matrix {
+        Matrix {
+            rows:data.len()
+            ,cols:data[0].len()
+            ,data
+        }
+
+    }
     
+
+    pub fn map(&mut self, function: &dyn Fn(f64) -> f64) -> Matrix {
+        Matrix::from(
+			(self.data)
+				.clone()
+				.into_iter()
+				.map(|row| row.into_iter().map(|value| function(value)).collect())
+				.collect(),
+		)
+
+    }
+
 
 }
