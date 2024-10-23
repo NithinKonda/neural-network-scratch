@@ -12,7 +12,7 @@ pub struct Network<'a> {
 
 impl Network <'_>{
 
-    pub fn new(layers: Vec<usize>) -> Network {
+    pub fn new<'a>(layers: Vec<usize>, activation: Activation<'a>) -> Network {
         let mut weights = vec![];
         let mut biases = vec![];
         for i in 0..layers.len()-1 {
@@ -26,6 +26,7 @@ impl Network <'_>{
             weights,
             biases,
             data: vec![],
+            activation,
         }
     }
 
@@ -37,11 +38,11 @@ impl Network <'_>{
         let mut current = Matrix::from(vec![inputs]).transpose();
         self.data = vec![current.clone()];
         for i in 0..self.layers.len()-1 {
-            current = self.weights[i].dot_multiply(&current).add(&self.biases[i]);
-            current = current.sigmoid();
-            self.data.push(current.clone());
+            current = self.weights[i].multiply(&current).add(&self.biases[i]).map(self.activation.function);
+
+        self.data.push(current.clone());
         }
 
-        current.data[0].clone()
+        current.data[0].to_owned()
     }
 }
