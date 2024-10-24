@@ -72,7 +72,7 @@ impl Network<'_> {
     pub fn train(&mut self, inputs : Vec<Vec<f64>>, targets: Vec<Vec<f64>>, epochs:u16) {
         for i in 0..epochs {
             if epochs < 100 || i % (epochs/100) ==0 {
-                print!("epochs {} of {}",i,epochs);
+                println!("epochs {} of {}",i,epochs);
             }
             for j in 0..inputs.len() {
                 let outputs = self.feed_forward(inputs[j].clone());
